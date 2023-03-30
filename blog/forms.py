@@ -9,7 +9,20 @@ from django.contrib.auth.forms import UserCreationForm
 class UserFormRegistration(UserCreationForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2']
+
+        labels = {
+            'username': 'Имя пользователя',
+            'password1': 'Пароль',
+            'password2': 'Подтверждение пароля'
+        }
+
+        error_messages = {
+            'username': {
+                'unique': 'Пользователь с таким именем уже существует',
+                'max_length': 'Имя слишком длинное!'
+            }
+        }
 
 
 class PostForm(forms.ModelForm):
