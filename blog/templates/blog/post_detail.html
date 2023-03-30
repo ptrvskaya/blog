@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+<div class="row">
+    <div class="leftcolumn">
+      <div class="card">
+        <h2> {{post.title}} </h2>
+        <h5>{{post.description}}, {{post.date}}</h5>
+        <img src="{{post.picture.url}}" alt="Image" width="998" height="450">
+        <p> {{post.content}} </p>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock  %}
