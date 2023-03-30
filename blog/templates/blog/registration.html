@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Создать пост {% endblock %}
+
+{% block content %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        
+        <div>
+
+            <br>
+            {{ field.label_tag }}
+            {{ field.errors }}
+            {{ field }}
+
+        </div>
+
+        {% endfor %}
+        
+        <br>
+        <button type="submit">Регистрация</button>
+    </form>
+
+{% endblock %}

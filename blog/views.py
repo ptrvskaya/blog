@@ -4,8 +4,10 @@ from django.template.loader import render_to_string
 from django.views.generic.edit import CreateView, UpdateView
 from random import sample
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, UserFormRegistration
 from django.views.generic import ListView, DetailView, DeleteView
+
+from django.contrib.auth.models import User
 
 
 def main_page(request):
@@ -49,3 +51,8 @@ class DeletePost(DeleteView):
     success_url = '/'
 
 
+class CreateUser(CreateView):
+    model = User
+    form_class = UserFormRegistration
+    template_name = 'blog/registration.html'
+    success_url = '/'
