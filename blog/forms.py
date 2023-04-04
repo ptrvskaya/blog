@@ -29,7 +29,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        exclude = ['slug']
+        exclude = ['slug', 'author']
 
         labels = {
             'title': 'Заголовок',

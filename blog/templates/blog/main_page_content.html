@@ -2,19 +2,28 @@
 
 {% block content %} 
 
+{% if username %}
+
+<h4> Добро пожаловать, {{username}} </h4>
+
+{% else %}
+
+<h4> <a href='/accounts/login/'> Войдите на сайт </a> </h4>
+
+{% endif %}
+
 {% for post in posts %}
 
 <div class="row">
-    <div class="leftcolumn">
       <div class="card">
         <h2> 
           <a href='posts/{{post.slug}}'> {{post.title}}  </a>
         </h2>
+        <h4> Автор: {{post.author}} </h4>
         <h5>{{post.description}}, {{post.date}}</h5>
         <img src="{{post.picture.url}}" alt="Image" width="998" height="450">
         <p> {{post.content}} </p>
       </div>
-    </div>
   </div>
 
 

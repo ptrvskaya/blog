@@ -40,11 +40,12 @@ class Post(models.Model):
 
     slug = models.SlugField(default='', null=False)
 
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) 
+
 
     def save(self, *args, **kwargs):
         if self.slug == '':
             self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 

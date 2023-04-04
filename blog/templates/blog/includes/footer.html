@@ -5,8 +5,16 @@
             <a href="{% url 'main_page' %}"> Главная</a> 
             <a href='/posts/'> Все посты</a> 
             <a href='/posts/new_post/'> Создать пост</a> 
+
+            {% if username %}
+
+            <a href='/accounts/logout/'> Выйти </a> 
+
+            {% else %}
+
             <a href='/accounts/login/'> Войти </a> 
 
+            {% endif %} 
 
     </nav>
 </div>
