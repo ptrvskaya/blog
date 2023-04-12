@@ -5,9 +5,7 @@ from random import sample
 from .models import Post
 from .forms import PostForm, UserFormRegistration
 from django.views.generic import ListView, DetailView, DeleteView
-
 from django.contrib.auth.models import User
-
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseForbidden
 
@@ -15,10 +13,16 @@ from django.http import HttpResponseForbidden
 
 def main_page(request):
     posts = list(Post.objects.all())
-    random_posts = sample(posts, 3)
-    data = {
+    if len(posts) < 3:
+        data = {
+            "posts": posts,
+    }
+    else:
+        random_posts = sample(posts, 3)
+        data = {
             "posts": random_posts,
     }
+
     if request.user.is_anonymous:
         return render(request, 'blog/main_page_content.html', context=data)   
     else:
@@ -34,7 +38,7 @@ class AllPosts(ListView):
     model = Post
     context_object_name = 'posts'
 
-    def get_context_data(self, **kwargs):   # тут как бы все хорошо но есть хуйня с несоблюдением принципа gry
+    def get_context_data(self, **kwargs):   
         context = super().get_context_data(**kwargs)
         context['username'] = self.request.user.username
         return context
@@ -46,11 +50,11 @@ class OnePost(DetailView):
     context_object_name = 'post'
     
 
-    def get_context_data(self, **kwargs):       # тут тоже, чат gpt предложил context processor использовать 
+    def get_context_data(self, **kwargs):      
         context = super().get_context_data(**kwargs)
         context['username'] = self.request.user.username
         post = self.get_object()
-        if self.request.user.id == post.author_id:  # но это отличие от аналогичного метода в AllPosts
+        if self.request.user.id == post.author_id: 
             context |= {'is_author': 'is_author'}
         return context
 
